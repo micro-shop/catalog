@@ -14,7 +14,5 @@ after_success:
           push "$REPO:$TAG";
   - export NAME=$GROUP/$REPO
 
-  - docker build -t ${DOCKER_USERNAME}/${REPO}:${TRAVIS_BUILD_ID} .
-  - docker push ${DOCKER_USERNAME}/${REPO}:${TRAVIS_BUILD_ID}
-  - docker tag ${DOCKER_USERNAME}/${REPO}:${TRAVIS_BUILD_ID} ${DOCKER_USERNAME}/${REPO}:latest
-  - docker push ${DOCKER_USERNAME}/${REPO}:latest
+  - docker build -t ${DOCKER_USERNAME}/${REPO} .
+  - docker push ${DOCKER_USERNAME}/${REPO}
