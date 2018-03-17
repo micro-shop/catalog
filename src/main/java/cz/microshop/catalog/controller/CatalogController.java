@@ -24,7 +24,7 @@ public class CatalogController {
     CatalogService catalogService;
 
     @RequestMapping(value = "/create", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
-    public ResponseEntity<ArrayList<Catalog>> createOrder(@RequestBody ArrayList<Catalog> catalogList)   {
+    public ResponseEntity<ArrayList<Catalog>> create(@RequestBody ArrayList<Catalog> catalogList)   {
         return new ResponseEntity<ArrayList<Catalog>>((ArrayList<Catalog>) catalogService.create(catalogList), HttpStatus.OK);
 
     }

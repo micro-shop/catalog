@@ -6,7 +6,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.UUID;
 
 //@JsonIgnoreProperties(ignoreUnknown = true)
-@Document(collection="order")
+@Document(collection="catalog")
 public class Catalog {
     @Id
     private UUID id;
