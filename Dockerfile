@@ -1,3 +1,3 @@
 FROM java:8-jre
-ADD target/*.jar .
-ENTRYPOINT ["/usr/local/bin/java.sh","-jar","./app.jar", "--port=80"]
+ADD target/catalog-0.0.1-SNAPSHOT.jar .
+ENTRYPOINT ["java","-jar","./catalog-0.0.1-SNAPSHOT.jar", "--port=80"]
