@@ -1,4 +1,4 @@
-package cz.microshop.catalog.config;
+package cz.microshop.cart.config;
 
 
 public class CatalogConfigurationProperties {

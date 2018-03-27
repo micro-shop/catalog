@@ -1,17 +1,17 @@
-package cz.microshop.catalog.service;
+package cz.microshop.cart.service;
 
-import cz.microshop.catalog.model.Catalog;
-import cz.microshop.catalog.repository.ICatalogRepository;
+import cz.microshop.cart.model.Catalog;
+import cz.microshop.cart.repository.IProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class CatalogService {
+public class ProductService {
 
     @Autowired
-    private ICatalogRepository orderRepository;
+    private IProductRepository orderRepository;
 
     public List<Catalog> findAll() {
         return orderRepository.findAll();
