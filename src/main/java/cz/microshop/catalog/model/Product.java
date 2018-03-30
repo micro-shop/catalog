@@ -1,75 +1,110 @@
 package cz.microshop.catalog.model;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import org.hibernate.annotations.Type;
 
+import javax.persistence.*;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.Min;
 import java.math.BigDecimal;
 
-//@JsonIgnoreProperties(ignoreUnknown = true)
-@Document(collection="product")
+@Entity
+@Table(name="product")
 public class Product {
-    @Id
-    private Long id;
-    private String name;
-    private String description;
-    private Long quantity;
-    private BigDecimal price;
-    private Long categoryId;
-    private String productImageUrl;
 
-    public Long getCategoryId() {
-        return categoryId;
-    }
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private Long id;
+	
+	@Column(name="name", nullable=false)
+	private String name;
+	
+	@Column(name="description", nullable=false)
+	@Type(type="text")
+	private String description;
+	
+	@Column(name="quantity", nullable=false)
+	@Min(value=0L)
+	private Long quantity;
+	
+	@Column(name="price", nullable=false)
+	@Digits(integer = 10, fraction = 2)
+	private BigDecimal price;
 
-    public void setCategoryId(Long categoryId) {
-        this.categoryId = categoryId;
-    }
+	@JsonBackReference
+	@ManyToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+	@JoinColumn(name="category_id")
+	private Category category;
+	
+	@Column(name="product_image_url")
+	private String productImageUrl;
 
-    public String getDescription() {
-        return description;
-    }
+	public Product(String name, String description, Long quantity, BigDecimal price, Category category,
+				   String productImageUrl) {
+		super();
+		this.name = name;
+		this.description = description;
+		this.quantity = quantity;
+		this.price = price;
+		this.category = category;
+		this.productImageUrl = productImageUrl;
+	}
+	
+	public Product() {}
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public Long getId() {
-        return id;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public String getDescription() {
+		return description;
+	}
 
-    public BigDecimal getPrice() {
-        return price;
-    }
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
+	public Long getQuantity() {
+		return quantity;
+	}
 
-    public String getProductImageUrl() {
-        return productImageUrl;
-    }
+	public void setQuantity(Long quantity) {
+		this.quantity = quantity;
+	}
 
-    public void setProductImageUrl(String productImageUrl) {
-        this.productImageUrl = productImageUrl;
-    }
+	public BigDecimal getPrice() {
+		return price;
+	}
 
-    public Long getQuantity() {
-        return quantity;
-    }
+	public void setPrice(BigDecimal price) {
+		this.price = price;
+	}
 
-    public void setQuantity(Long quantity) {
-        this.quantity = quantity;
-    }
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
+	}
+
+	public String getProductImageUrl() {
+		return productImageUrl;
+	}
+
+	public void setProductImageUrl(String productImageUrl) {
+		this.productImageUrl = productImageUrl;
+	}
 }

@@ -1,7 +1,7 @@
 package cz.microshop.catalog.service;
 
+import cz.microshop.catalog.dao.ProductDao;
 import cz.microshop.catalog.model.Product;
-import cz.microshop.catalog.repository.IProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,13 +11,25 @@ import java.util.List;
 public class ProductService {
 
     @Autowired
-    private IProductRepository productRepository;
+    private ProductDao productDao;
 
     public List<Product> findAll() {
-        return productRepository.findAll();
+        return productDao.findAll();
     }
 
     public List<Product> create(List<Product> list) {
-        return productRepository.saveAll(list);
+        return productDao.saveAll(list);
+    }
+
+    public Product findOne(Long id) {
+        return productDao.findById(id).orElseGet(null);
+    }
+
+    public List<Product> findByTerm(String searchTerm) {
+        return productDao.findByTerm(searchTerm);
+    }
+
+    public List<Product> findByCategoryId(Long categoryId) {
+        return productDao.findByCategoryId(categoryId);
     }
 }
