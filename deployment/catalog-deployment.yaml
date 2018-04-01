@@ -11,11 +11,11 @@ spec:
   template:
     metadata:
       labels:
-        name: cart
+        name: catalog
     spec:
       containers:
-      - name: cart
-        image: microshop/cart:latest
+      - name: catalog
+        image: microshop/catalog:latest
         env:
          - name: ZIPKIN
            value: zipkin.zipkin.svc.cluster.local
