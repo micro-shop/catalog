@@ -21,6 +21,8 @@ spec:
           # make sure password.txt does not have a trailing newline
         - name: MYSQL_ROOT_PASSWORD
           value: mysql
+        - name: MYSQL_DATABASE
+          value: data
           #valueFrom:
           #  secretKeyRef:
           #    name: mysql-pass
@@ -34,6 +36,6 @@ spec:
       volumes:
         - name: mysql-persistent-storage
           persistentVolumeClaim:
-                    claimName: mysql-pv-claim
+                    claimName: catalog-mysql-pv-claim
       nodeSelector:
         beta.kubernetes.io/os: linux
