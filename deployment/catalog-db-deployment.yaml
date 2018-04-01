@@ -2,38 +2,38 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: cart-db
+  name: catalog-db
   labels:
-    name: cart-db
+    name: catalog-db
   namespace: default
 spec:
   replicas: 1
   template:
     metadata:
       labels:
-        name: cart-db
+        name: catalog-db
     spec:
       containers:
-      - name: cart-db
-        image: mongo
+      - name: catalog-db
+        image: mysql:5.6
+        env:
+          # $ kubectl create secret generic mysql-pass --from-file=password.txt
+          # make sure password.txt does not have a trailing newline
+        - name: MYSQL_ROOT_PASSWORD
+          value: mysql
+          #valueFrom:
+          #  secretKeyRef:
+          #    name: mysql-pass
+          #   key: password.txt
         ports:
-        - name: mongo
-          containerPort: 27017
-        securityContext:
-          capabilities:
-            drop:
-              - all
-            add:
-              - CHOWN
-              - SETGID
-              - SETUID
-          readOnlyRootFilesystem: true
+        - name: mysql
+          containerPort: 3306
         volumeMounts:
-        - mountPath: /tmp
-          name: tmp-volume
+        - mountPath: /var/lib/mysql
+          name: mysql-persistent-storage
       volumes:
-        - name: tmp-volume
-          emptyDir:
-            medium: Memory
+        - name: mysql-persistent-storage
+          persistentVolumeClaim:
+                    claimName: mysql-pv-claim
       nodeSelector:
         beta.kubernetes.io/os: linux

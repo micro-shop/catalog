@@ -2,14 +2,14 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: cart-db
+  name: catalog-db
   labels:
-    name: cart-db
+    name: catalog-db
   namespace: default
 spec:
   ports:
     # the port that this service should serve on
-  - port: 27017
-    targetPort: 27017
+  - port: 3306
+    targetPort: 3306
   selector:
-    name: cart-db
+    name: catalog-db

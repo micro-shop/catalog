@@ -2,9 +2,9 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: cart
+  name: catalog
   labels:
-    name: cart
+    name: catalog
   namespace: default
 spec:
   replicas: 1
