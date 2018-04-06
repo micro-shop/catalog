@@ -5,6 +5,8 @@ import cz.microshop.catalog.service.ProductService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,18 +34,13 @@ public class CatalogController {
     }
 
     @RequestMapping(value = "/findByTerm", method = RequestMethod.GET, produces = "application/json")
-    public List<Product> getProductsByTerm(@RequestParam String searchTerm) {
-        return productService.findByTerm(searchTerm);
+    public Page<Product> getProductsByTerm(@RequestParam String searchTerm, @RequestParam Pageable pageable) {
+        return productService.findByTerm(searchTerm, pageable);
     }
 
     @RequestMapping(value = "/findByCategory", method = RequestMethod.GET, produces = "application/json")
-    public List<Product> getProductsByTerm(@RequestParam Long categoryId) {
-        return productService.findByCategoryId(categoryId);
-    }
-
-    @RequestMapping(value = "/create", method = RequestMethod.GET, produces = "application/json")
-    public List<Product> getProductsByCategoryId(@RequestParam Long categoryId) {
-        return productService.findByCategoryId((long)categoryId);
+    public Page<Product> getProductsByTerm(@RequestParam Long categoryId, @RequestParam Pageable pageable) {
+        return productService.findByCategoryId(categoryId, pageable);
     }
 
     @RequestMapping(value = "/getSixBest", method = RequestMethod.GET, produces = "application/json")
@@ -55,6 +52,11 @@ public class CatalogController {
     @RequestMapping(value = "/findAll", method = RequestMethod.GET, produces = "application/json")
     public List<Product> getAll() {
         return productService.findAll();
+    }
+
+    @RequestMapping(value = "/findAll", method = RequestMethod.GET, produces = "application/json")
+    public Page<Product> getAllByPage(@RequestParam Pageable pageable) {
+        return productService.findAllByPage(pageable);
     }
 
 }
